@@ -11,20 +11,17 @@ from django.contrib.auth.decorators import (
     permission_required,
 )
 
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, render
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, DetailView, ListView
 
-from .forms  import DetalleVentaForm, VentaForm
+from .forms import DetalleVentaForm, VentaForm
 from .models import DetalleVenta, Venta
-
-from django.views.generic import DetailView, ListView
-
-from .models import Venta
 
 
 class VentaListView(ListView):
@@ -120,3 +117,49 @@ class VentaDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
         response = super().form_valid(form)
         messages.success(self.request, f'Venta #{pk} eliminada.')
         return response
+    
+@login_required
+def venta_pdf(request, venta_id: int) -> HttpResponse:
+
+
+    venta = get_object_or_404(
+        Venta.objects
+        .select_related('cliente')
+        .prefetch_related('detalles__producto__categoria'),
+        pk=venta_id,
+    )
+
+    config = ConfiguracionERP.get_instance()
+    context = {
+        'venta':  venta,
+        'config': config,
+        'hoy':    date.today(),
+    }
+
+    html_string = render_to_string(
+        'ventas/factura_pdf.html', context, request=request
+    )
+
+    def link_callback(uri, rel):
+        """Convierte /media/... en ruta de disco para que se vea el logo."""
+        media_url = settings.MEDIA_URL
+        if media_url and uri.startswith(media_url):
+            return os.path.join(settings.MEDIA_ROOT, uri[len(media_url):])
+        return uri
+
+    buffer = BytesIO()
+    resultado = pisa.CreatePDF(
+        src=html_string,
+        dest=buffer,
+        link_callback=link_callback,
+        encoding='utf-8',
+    )
+
+    if resultado.err:
+        return HttpResponse('Error al generar el PDF.', status=500)
+
+    response = HttpResponse(buffer.getvalue(), content_type='application/pdf')
+    response['Content-Disposition'] = (
+        f'attachment; filename="factura_{venta.pk:05d}.pdf"'
+    )
+    return response

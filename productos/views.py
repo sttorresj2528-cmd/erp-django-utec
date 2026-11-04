@@ -21,6 +21,17 @@ from django.views.generic import DetailView, ListView
 from .models import Producto
 
 
+import io
+from datetime import date
+from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from xhtml2pdf import pisa
+
+from configuracion.models import ConfiguracionERP
+
+
 class ProductoListView(ListView):
     """Lista paginada de productos activos.
 
@@ -146,4 +157,37 @@ class ProductoDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView
         nombre   = self.object.nombre
         response = super().form_valid(form)
         messages.success(self.request, f'Producto "{nombre}" eliminado.')
+        return response
+    
+
+    @login_required
+    def venta_pdf(request, venta_id: int) -> HttpResponse:
+        """Genera y descarga la factura en PDF usando xhtml2pdf (sin Docker)."""
+        venta = get_object_or_404(
+            Venta.objects
+            .select_related('cliente')
+            .prefetch_related('detalles__producto__categoria'),
+            pk=venta_id
+        )
+
+        config = ConfiguracionERP.get_instance()
+        context = {
+            'venta': venta,
+            'config': config,
+            'hoy': date.today(),
+        }
+
+        # Renderizar el HTML
+        html_string = render_to_string('ventas/factura_pdf.html', context, request=request)
+
+        # Crear buffer en memoria para el PDF
+        buffer = io.BytesIO()
+        pisa_status = pisa.CreatePDF(src=html_string, dest=buffer)
+
+        if pisa_status.err:
+            return HttpResponse('Error al generar el archivo PDF', status=500)
+
+        buffer.seek(0)
+        response = HttpResponse(buffer.read(), content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="factura_{venta.pk:05d}.pdf"'
         return response
