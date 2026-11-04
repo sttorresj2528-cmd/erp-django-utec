@@ -11,6 +11,13 @@ from django.contrib.auth.decorators import (
     permission_required,
 )
 
+import os
+from datetime import date
+from io import BytesIO
+
+from django.template.loader import render_to_string
+from xhtml2pdf import pisa
+
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.conf import settings
@@ -22,6 +29,8 @@ from django.views.generic import DeleteView, DetailView, ListView
 
 from .forms import DetalleVentaForm, VentaForm
 from .models import DetalleVenta, Venta
+
+from configuracion.models import ConfiguracionERP
 
 
 class VentaListView(ListView):
