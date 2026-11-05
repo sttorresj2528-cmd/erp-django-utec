@@ -1,5 +1,5 @@
 {% load static %}<!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es" data-theme="dark" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +13,7 @@
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- FontAwesome Pro/Free -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -28,6 +28,7 @@
             --rock-gold: #ffb703;
             --rock-text: #f1f5f9;
             --rock-muted: #8a8aa3;
+            --rock-soft: #b4b4c8;      /* texto secundario con mejor contraste */
             --rock-border: #262636;
             --rock-glow: rgba(255, 0, 60, 0.5);
         }
@@ -66,7 +67,7 @@
             right: 10%;
             width: 300px;
             height: 600px;
-            background: linear-gradient(180deg, rgba(0, 240, 255, 0.15) 0%, transparent 80%);
+            background: linear-gradient(180deg, rgba(255, 183, 3, 0.14) 0%, transparent 80%);
             transform: rotate(25deg);
             pointer-events: none;
             z-index: 0;
@@ -81,6 +82,8 @@
             box-shadow: 0 4px 30px rgba(255, 0, 60, 0.3);
             padding: 0.85rem 2rem;
             display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
             align-items: center;
             justify-content: space-between;
             position: sticky;
@@ -119,8 +122,18 @@
             text-shadow: 0 0 12px rgba(255, 183, 3, 0.6);
         }
 
+        /* "| Rock Studio" ahora se lee bien sobre el fondo negro */
+        .erp-brand-sub {
+            color: var(--rock-soft);
+            font-weight: 400;
+            font-size: 1rem;
+            letter-spacing: 0;
+            text-transform: lowercase;
+        }
+
         .erp-nav-links {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             gap: 0.4rem;
         }
@@ -153,6 +166,104 @@
             z-index: 1;
         }
 
+        /* ───────────────────────────────────────────────
+           COMPONENTES COMPARTIDOS DE LAS PÁGINAS INTERNAS
+           (antes no tenían estilo: por eso "Editar/Eliminar"
+           salían como links azules y la info sin tarjeta)
+        ─────────────────────────────────────────────── */
+        .erp-page-title {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .erp-page-title h1,
+        .erp-page-title h2 {
+            margin: 0;
+            font-weight: 900;
+            font-size: 1.9rem;
+            letter-spacing: -0.01em;
+        }
+
+        .erp-card {
+            background: var(--rock-card);
+            border: 1px solid var(--rock-border);
+            border-radius: 14px;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+        .erp-card-header {
+            padding: 0.85rem 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--rock-border);
+            border-left: 4px solid var(--rock-red);
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .erp-card > dl.row { padding: 0.75rem 1.25rem; }
+        .erp-card dt,
+        .erp-card dd {
+            padding-top: 0.55rem;
+            padding-bottom: 0.55rem;
+            margin: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .erp-card dt { color: var(--rock-gold); font-weight: 800; }
+        .erp-card dd { color: var(--rock-text); }
+
+        /* Botones */
+        .btn-erp-gold,
+        .btn-erp-danger,
+        .btn-erp-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1.1rem;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+        .btn-erp-gold { background: var(--rock-gold); color: #111; }
+        .btn-erp-gold:hover { background: #ffc83d; color: #111; box-shadow: 0 0 16px rgba(255, 183, 3, 0.45); }
+
+        .btn-erp-danger { background: transparent; border-color: var(--rock-red); color: var(--rock-red); }
+        .btn-erp-danger:hover { background: var(--rock-red); color: #fff; box-shadow: 0 0 16px var(--rock-glow); }
+
+        .btn-erp-secondary { background: transparent; border-color: var(--rock-border); color: var(--rock-text); }
+        .btn-erp-secondary:hover { border-color: var(--rock-gold); color: var(--rock-gold); }
+
+        .btn-erp-gold:focus-visible,
+        .btn-erp-danger:focus-visible,
+        .btn-erp-secondary:focus-visible { outline: 2px solid var(--rock-gold); outline-offset: 3px; }
+
+        /* Links sueltos dentro del contenido (ej. "← Volver a la lista") */
+        .erp-main a:not([class]) { color: var(--rock-gold); text-decoration: none; font-weight: 600; }
+        .erp-main a:not([class]):hover { color: var(--rock-red); text-decoration: underline; }
+
+        /* Tablas y formularios */
+        .erp-table { width: 100%; border-collapse: collapse; }
+        .erp-table th {
+            padding: 0.7rem 0.9rem;
+            text-align: left;
+            font-weight: 800;
+            color: var(--rock-gold);
+            border-bottom: 2px solid var(--rock-red);
+        }
+        .erp-table td { padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--rock-border); }
+        .erp-table tbody tr:hover { background: var(--rock-card-hover); }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--rock-red);
+            box-shadow: 0 0 0 0.2rem rgba(255, 0, 60, 0.25);
+        }
+
         /* FOOTER */
         .erp-footer {
             background: var(--rock-dark);
@@ -167,6 +278,14 @@
             position: relative;
             z-index: 1;
         }
+
+        @media (max-width: 992px) {
+            .erp-navbar { padding: 0.75rem 1rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .erp-brand i { animation: none; }
+            .erp-nav-link:hover, .erp-nav-link.active { transform: none; }
+        }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
@@ -178,7 +297,7 @@
     <a class="erp-brand" href="/">
         <i class="fa-solid fa-guitar"></i>
         <span>ERP <span class="rock-font">Django</span></span>
-        <span class="text-muted fw-normal fs-6 text-lowercase">| Rock Studio</span>
+        <span class="erp-brand-sub">| Rock Studio</span>
     </a>
     <div class="erp-nav-links">
         <a href="{% url 'productos:lista' %}" class="erp-nav-link {% block nav_productos %}{% endblock %}"><i class="fa-solid fa-compact-disc me-1"></i> Productos</a>
@@ -216,7 +335,7 @@
 
 <!-- FOOTER -->
 <footer class="erp-footer">
-    <i class="fa-solid fa-microphone-lines me-2 text-danger"></i> ERP Django · 100% Rock & Roll · UTEC Celaya
+    <i class="fa-solid fa-microphone-lines me-2 text-danger"></i> ERP Django · 100% Rock &amp; Roll · UTEC Celaya
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

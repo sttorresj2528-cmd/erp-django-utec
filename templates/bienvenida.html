@@ -3,34 +3,26 @@
 
 {% block extra_css %}
 <style>
-    /* Hero Stage Banner */
+    /* ── Hero Stage Banner ─────────────────────────────── */
     .erp-hero {
         background: linear-gradient(135deg, rgba(20, 20, 28, 0.95) 0%, rgba(8, 8, 10, 0.98) 100%),
                     url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80') center/cover;
         border: 2px solid var(--rock-border);
-        border-bottom: 4px solid var(--rock-red);
         border-radius: 20px;
-        padding: 3rem 2.5rem;
+        padding: 3rem 2.5rem 5rem;
         margin-bottom: 3rem;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-    }
-
-    /* Silueta SVG de Rockero en el Banner */
-    .rocker-silhouette {
-        position: absolute;
-        right: 20px;
-        bottom: 0;
-        height: 100%;
-        opacity: 0.18;
-        pointer-events: none;
-        filter: drop-shadow(0 0 10px var(--rock-red));
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 2rem;
+        align-items: center;
     }
 
     .erp-hero h1 {
         font-weight: 900;
-        font-size: 2.8rem;
+        font-size: clamp(2rem, 5vw, 2.8rem);
         letter-spacing: -0.02em;
         text-transform: uppercase;
         color: #fff;
@@ -47,7 +39,7 @@
     }
 
     .erp-hero p {
-        color: var(--rock-muted);
+        color: var(--rock-soft);
         font-size: 1.15rem;
         max-width: 600px;
         margin-bottom: 1.5rem;
@@ -69,7 +61,61 @@
         box-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
     }
 
-    /* AMPLIFICADOR / TARJETAS DE MÓDULO */
+    /* ── Ecualizador (reemplaza la silueta gris) ───────── */
+    .hero-eq {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        height: 230px;
+        padding: 0 0.5rem;
+    }
+    .hero-eq span {
+        flex: 1;
+        height: var(--h);
+        border-radius: 5px 5px 0 0;
+        background: linear-gradient(to top, var(--rock-red) 0%, var(--rock-red) 55%, var(--rock-gold) 100%);
+        box-shadow: 0 0 14px rgba(255, 0, 60, 0.35);
+        transform-origin: bottom;
+        animation:
+            eq-grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both,
+            eq-bounce var(--d, 1.1s) ease-in-out infinite alternate;
+        animation-delay:
+            calc(var(--i) * 55ms),
+            calc(0.9s + var(--i) * 40ms);
+    }
+    .hero-eq span:nth-child(3n)   { --d: 0.85s; }
+    .hero-eq span:nth-child(3n+1) { --d: 1.3s; }
+    .hero-eq span:nth-child(3n+2) { --d: 1.05s; }
+    @keyframes eq-grow   { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    @keyframes eq-bounce { from { transform: scaleY(1); } to { transform: scaleY(0.42); } }
+
+    /* ── Ondas de sonido en la base (reemplazan la línea roja fija) ── */
+    .hero-wave {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 54px;
+        overflow: hidden;
+        pointer-events: none;
+    }
+    .hero-wave svg {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 200%;
+        height: 100%;
+        fill: none;
+        stroke-linecap: round;
+        animation: wave-flow 5s linear infinite;
+    }
+    .hero-wave path { vector-effect: non-scaling-stroke; }
+    .hero-wave .w1 path { stroke: var(--rock-red); stroke-width: 3; filter: drop-shadow(0 0 6px var(--rock-red)); }
+    .hero-wave .w2 { animation-duration: 8s; animation-direction: reverse; }
+    .hero-wave .w2 path { stroke: var(--rock-gold); stroke-width: 2; opacity: 0.5; }
+    @keyframes wave-flow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── AMPLIFICADOR / TARJETAS DE MÓDULO ─────────────── */
     .erp-module-card {
         background: var(--rock-card);
         /* Textura estilo Malla de Amplificador */
@@ -101,19 +147,19 @@
         transition: opacity 0.3s;
     }
 
-    .erp-module-card:hover {
+    .erp-module-card:hover,
+    .erp-module-card:focus-visible {
         transform: translateY(-10px) rotate(-1deg);
         background-color: var(--rock-card-hover);
         border-color: var(--rock-red);
         box-shadow: 0 20px 40px rgba(255, 0, 60, 0.35), inset 0 0 15px rgba(255, 0, 60, 0.1);
         color: #fff;
     }
+    .erp-module-card:focus-visible { outline: 2px solid var(--rock-gold); outline-offset: 4px; }
 
-    .erp-module-card:hover::before {
-        opacity: 1;
-    }
+    .erp-module-card:hover::before { opacity: 1; }
 
-    /* Contenedor del Icono con animación de Rocker */
+    /* Contenedor del Icono */
     .erp-module-card .ico-wrapper {
         width: 65px;
         height: 65px;
@@ -127,7 +173,7 @@
         font-size: 1.8rem;
         margin-bottom: 1.25rem;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
 
     .erp-module-card:hover .ico-wrapper {
@@ -149,11 +195,12 @@
         justify-content: space-between;
     }
 
+    /* Descripción más grande y con mejor contraste */
     .erp-module-card .desc {
-        color: var(--rock-muted);
-        font-size: 0.92rem;
+        color: var(--rock-soft);
+        font-size: 1rem;
         margin: 0;
-        line-height: 1.5;
+        line-height: 1.55;
     }
 
     /* Perillas de Volumen estilo Amplificador (Knobs) */
@@ -185,43 +232,77 @@
         transform: translateX(-50%);
     }
 
-    .erp-module-card:hover .knob::after {
-        background: var(--rock-red);
-    }
+    .erp-module-card:hover .knob::after { background: var(--rock-red); }
 
+    /* Acción: ya no es cian, ahora rojo y dorado como el resto */
     .rock-action {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         font-weight: 800;
-        color: var(--rock-neon);
+        color: var(--rock-red);
         text-transform: uppercase;
+        letter-spacing: 0.5px;
         margin-top: auto;
         padding-top: 1rem;
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        transition: color 0.2s;
+    }
+    .erp-module-card:hover .rock-action { color: var(--rock-gold); }
+
+    /* ── Móvil y accesibilidad ─────────────────────────── */
+    @media (max-width: 800px) {
+        .erp-hero { grid-template-columns: 1fr; padding: 2rem 1.5rem 4.5rem; }
+        .hero-eq { height: 120px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .hero-eq span, .hero-wave svg { animation: none; }
+        .erp-module-card { transition: none; }
+        .erp-module-card:hover, .erp-module-card:focus-visible { transform: none; }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<!-- BANNER CON SILUETA DE ROCKERO -->
+<!-- BANNER: texto a la izquierda, ecualizador a la derecha, ondas abajo -->
 <section class="erp-hero">
-    <!-- SVG de Guitarrista Rockero -->
-    <svg class="rocker-silhouette" viewBox="0 0 512 512" fill="currentColor">
-        <path d="M400,96C380,40,320,0,256,0S132,40,112,96C90,157,110,210,110,210L170,480L256,512L342,480L402,210C402,210,422,157,400,96Z"/>
-    </svg>
+    <div>
+        <h1><i class="fa-solid fa-guitar text-danger me-2"></i> Heavy Metal ERP <span class="hand-font">Rocks!</span></h1>
+        <p>Control de mando para giras, inventario, merchandising y finanzas a todo volumen.</p>
 
-    <h1><i class="fa-solid fa-guitar text-danger me-2"></i> Heavy Metal ERP <span class="hand-font">Rocks!</span></h1>
-    <p>Control de mando para giras, inventario, merchandising y finanzas a todo volumen.</p>
+        <div class="d-flex flex-wrap gap-2">
+            <span class="badge-rock"><i class="fa-solid fa-fire-flame-curved text-warning"></i> Django 5.2 LTS</span>
+            <span class="badge-rock"><i class="fa-solid fa-bolt text-warning"></i> Python 3.11</span>
+            <span class="badge-rock"><i class="fa-solid fa-volume-high text-danger"></i> Volume: 11 / 10</span>
+        </div>
+    </div>
 
-    <div class="d-flex flex-wrap gap-2">
-        <span class="badge-rock"><i class="fa-solid fa-fire-flame-curved text-warning"></i> Django 4.2 LTS</span>
-        <span class="badge-rock"><i class="fa-solid fa-bolt text-info"></i> Python 3.11</span>
-        <span class="badge-rock"><i class="fa-solid fa-volume-high text-danger"></i> Volume: 11 / 10</span>
+    <!-- Ecualizador decorativo -->
+    <div class="hero-eq" aria-hidden="true">
+        <span style="--h:35%;--i:0"></span>
+        <span style="--h:60%;--i:1"></span>
+        <span style="--h:45%;--i:2"></span>
+        <span style="--h:80%;--i:3"></span>
+        <span style="--h:55%;--i:4"></span>
+        <span style="--h:95%;--i:5"></span>
+        <span style="--h:70%;--i:6"></span>
+        <span style="--h:100%;--i:7"></span>
+        <span style="--h:65%;--i:8"></span>
+        <span style="--h:85%;--i:9"></span>
+        <span style="--h:50%;--i:10"></span>
+        <span style="--h:72%;--i:11"></span>
+        <span style="--h:40%;--i:12"></span>
+        <span style="--h:58%;--i:13"></span>
+    </div>
+
+    <!-- Ondas de sonido animadas -->
+    <div class="hero-wave" aria-hidden="true">
+        <svg class="w2" viewBox="0 0 2400 54" preserveAspectRatio="none"><path d="M0 27 Q75 9 150 27 T300 27 T450 27 T600 27 T750 27 T900 27 T1050 27 T1200 27 T1350 27 T1500 27 T1650 27 T1800 27 T1950 27 T2100 27 T2250 27 T2400 27"/></svg>
+        <svg class="w1" viewBox="0 0 2400 54" preserveAspectRatio="none"><path d="M0 27 Q75 -3 150 27 T300 27 T450 27 T600 27 T750 27 T900 27 T1050 27 T1200 27 T1350 27 T1500 27 T1650 27 T1800 27 T1950 27 T2100 27 T2250 27 T2400 27"/></svg>
     </div>
 </section>
 
-<!-- CUADRÍCULA DE MÓDULOS CON ICONOS Y ESTILOS ROCKEROS -->
+<!-- CUADRÍCULA DE MÓDULOS (sigue usando tu variable "modulos") -->
 <div class="row g-4 erp-modules">
     {% for m in modulos %}
     <div class="col-12 col-md-6 col-lg-4">
@@ -244,7 +325,7 @@
                 </div>
                 <i class="fa-solid fa-hand-back-fist text-muted fs-4"></i>
             </div>
-            
+
             <div class="name">
                 {{ m.nombre }}
             </div>
