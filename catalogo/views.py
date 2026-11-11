@@ -235,28 +235,29 @@ def checkout(request):
             # ── 1. Vincular usuario con Cliente del ERP ────────────────
             cliente = obtener_o_crear_cliente(request.user)
 
-            # ── 2. Crear el Pedido en estado "pendiente" ───────────────
+            # catalogo/views.py — en la función checkout(), sección POST:
+# Reemplazar la línea de creación del Pedido:
+
+            # ── 2. Crear el Pedido con snapshot del carrito ────────────
             numero = generar_numero_pedido()
+
+            # Construir el snapshot: lista de dicts serializables
+            snapshot = [
+                {
+                    'producto_id': int(prod_id),
+                    'nombre':      datos['nombre'],
+                    'cantidad':    int(datos['cantidad']),
+                    'precio':      datos['precio'],   # ya es str
+                }
+                for prod_id, datos in carrito.items()
+            ]
+
             pedido = Pedido.objects.create(
-                numero_pedido = numero,
-                cliente       = cliente,
-                estado        = 'pendiente',
-                total_pagado  = totales['total'],
-            )
-
-            # ── 3. Crear PaymentIntent en Stripe ───────────────────────
-            # Monto en centavos (Stripe requiere entero)
-            monto_centavos = int(totales['total'] * 100)
-
-            intent = stripe.PaymentIntent.create(
-                amount          = monto_centavos,
-                currency        = 'mxn',
-                metadata        = {
-                    'pedido_id':  pedido.pk,
-                    'pedido_num': pedido.numero_pedido,
-                    'cliente':    cliente.nombre,
-                },
-                idempotency_key = f'pedido-{pedido.pk}',
+                numero_pedido  = numero,
+                cliente        = cliente,
+                estado         = 'pendiente',
+                total_pagado   = totales['total'],
+                items_snapshot = snapshot,           # ← nuevo
             )
 
             # ── 4. Retornar client_secret al template ──────────────────
