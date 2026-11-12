@@ -69,10 +69,10 @@ def stripe_webhook(request) -> HttpResponse:
     logger.info(f'Webhook recibido: {tipo}')
 
     if tipo == 'payment_intent.succeeded':
-        _manejar_pago_exitoso(event['data']['object'])
+        _manejar_pago_exitoso(event['data']['object'].to_dict())
 
     elif tipo == 'payment_intent.payment_failed':
-        _manejar_pago_fallido(event['data']['object'])
+        _manejar_pago_fallido(event['data']['object'].to_dict())
 
     else:
         logger.debug(f'Evento ignorado: {tipo}')
