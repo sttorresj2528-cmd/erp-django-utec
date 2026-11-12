@@ -259,6 +259,17 @@ def checkout(request):
                 total_pagado   = totales['total'],
                 items_snapshot = snapshot,           # ← nuevo
             )
+            
+            # — 3. Crear PaymentIntent en Stripe ——————————
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            intent = stripe.PaymentIntent.create(
+                amount=int(totales['total'] * 100),   # centavos
+                currency='mxn',
+                metadata={'pedido_id': pedido.id, 'numero': numero},
+                automatic_payment_methods={'enabled': True},
+            )
+            pedido.stripe_payment_intent_id = intent.id
+            pedido.save()
 
             # ── 4. Retornar client_secret al template ──────────────────
             return render(request, 'catalogo/checkout.html', {
