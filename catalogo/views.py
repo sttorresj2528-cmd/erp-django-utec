@@ -44,6 +44,9 @@ from productos.models import Producto
 
 from .filters import ProductoFilter
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 # ── CATÁLOGO ───────────────────────────────────────────────────────────────
 
@@ -286,8 +289,9 @@ def checkout(request):
                 f'Error al conectar con Stripe: {exc.user_message}'
             )
             return redirect('catalogo:pago_error')
-
+        
         except Exception as exc:
+            logger.exception("Error en checkout")
             messages.error(
                 request,
                 f'Error inesperado en el proceso de pago: {exc}'
