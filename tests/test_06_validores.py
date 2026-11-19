@@ -1,10 +1,3 @@
-# INCORRECTO — save() NO ejecuta validators
-producto.precio = Decimal('-10.00')
-producto.save()            # no lanza error — guarda -10 en BD
-
-# CORRECTO — full_clean() ejecuta todos los validators y clean()
-producto.precio = Decimal('-10.00')
-producto.full_clean()      # lanza ValidationError aquí
 
 """Suite de pruebas W06 — Validators, integridad y comportamiento de modelos.
 

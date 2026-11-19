@@ -35,7 +35,7 @@ class TemplatesRenderTest(TestCase):
         """La vista de clientes debe usar clientes/lista.html."""
         response = self.client.get(reverse('clientes:lista'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'clientes/index.html')
+        self.assertTemplateUsed(response, 'clientes/lista.html')
 
     def test_proveedores_usa_template_correcto(self):
         """La vista de proveedores debe usar proveedores/lista.html."""

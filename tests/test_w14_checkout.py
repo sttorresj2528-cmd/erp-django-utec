@@ -83,14 +83,14 @@ class CheckoutPagoTest(TestCase):
     @patch('catalogo.views.stripe.PaymentIntent.create')
     def test_post_checkout_crea_pedido(self, mock_pi):
         """POST /catalogo/checkout/ → se crea un Pedido en BD."""
-        mock_pi.return_value = MagicMock(client_secret='pi_test_secret')
+        mock_pi.return_value = MagicMock(id='pi_test_123', client_secret='pi_test_secret')
         self.client.post(reverse('catalogo:checkout'))
         self.assertEqual(Pedido.objects.count(), 1)
 
     @patch('catalogo.views.stripe.PaymentIntent.create')
     def test_post_checkout_pedido_estado_pendiente(self, mock_pi):
         """El Pedido creado debe tener estado 'pendiente'."""
-        mock_pi.return_value = MagicMock(client_secret='pi_test_secret')
+        mock_pi.return_value = MagicMock(id='pi_test_123', client_secret='pi_test_secret')
         self.client.post(reverse('catalogo:checkout'))
         pedido = Pedido.objects.first()
         self.assertEqual(pedido.estado, 'pendiente')
@@ -98,7 +98,7 @@ class CheckoutPagoTest(TestCase):
     @patch('catalogo.views.stripe.PaymentIntent.create')
     def test_post_checkout_calcula_iva(self, mock_pi):
         """El total del Pedido debe incluir el IVA configurado."""
-        mock_pi.return_value = MagicMock(client_secret='pi_test_secret')
+        mock_pi.return_value = MagicMock(id='pi_test_123', client_secret='pi_test_secret')
         self.client.post(reverse('catalogo:checkout'))
         pedido    = Pedido.objects.first()
         config    = ConfiguracionERP.get_instance()
@@ -110,7 +110,7 @@ class CheckoutPagoTest(TestCase):
     @patch('catalogo.views.stripe.PaymentIntent.create')
     def test_post_checkout_crea_cliente_erp(self, mock_pi):
         """Se debe crear (o encontrar) un Cliente ERP para el usuario."""
-        mock_pi.return_value = MagicMock(client_secret='pi_test_secret')
+        mock_pi.return_value = MagicMock(id='pi_test_123', client_secret='pi_test_secret')
         self.client.post(reverse('catalogo:checkout'))
         self.assertTrue(
             Cliente.objects.filter(correo=self.user.email).exists()
@@ -119,7 +119,7 @@ class CheckoutPagoTest(TestCase):
     @patch('catalogo.views.stripe.PaymentIntent.create')
     def test_post_checkout_llama_stripe_con_monto_correcto(self, mock_pi):
         """Stripe debe recibir el monto en centavos."""
-        mock_pi.return_value = MagicMock(client_secret='pi_test_secret')
+        mock_pi.return_value = MagicMock(id='pi_test_123', client_secret='pi_test_secret')
         self.client.post(reverse('catalogo:checkout'))
         config   = ConfiguracionERP.get_instance()
         subtotal = Decimal('1000.00')

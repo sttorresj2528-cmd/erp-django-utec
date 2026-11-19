@@ -1,0 +1,488 @@
+﻿python : Creating test database for alias 'default'...
+En línea: 1 Carácter: 1
++ python manage.py test tests.test_w14_checkout 2>&1 | Out-File -Encodi ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Creating test d...as 'default'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+...Error en checkout
+Traceback (most recent call last):
+  File "E:\WorkSpace_ERP\catalogo\views.py", line 275, in checkout
+    pedido.save()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1288, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2000, in as_sql
+    raise FieldError(
+django.core.exceptions.FieldError: Aggregate functions are not allowed in this query (stripe_payment_intent_id=<MagicMock 
+name='create().id.resolve_expression().resolve_expression()' id='1503857214544'>).
+EError en checkout
+Traceback (most recent call last):
+  File "E:\WorkSpace_ERP\catalogo\views.py", line 275, in checkout
+    pedido.save()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1288, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2000, in as_sql
+    raise FieldError(
+django.core.exceptions.FieldError: Aggregate functions are not allowed in this query (stripe_payment_intent_id=<MagicMock 
+name='create().id.resolve_expression().resolve_expression()' id='1503858212048'>).
+EError en checkout
+Traceback (most recent call last):
+  File "E:\WorkSpace_ERP\catalogo\views.py", line 275, in checkout
+    pedido.save()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1288, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2000, in as_sql
+    raise FieldError(
+django.core.exceptions.FieldError: Aggregate functions are not allowed in this query (stripe_payment_intent_id=<MagicMock 
+name='create().id.resolve_expression().resolve_expression()' id='1503860290064'>).
+EError en checkout
+Traceback (most recent call last):
+  File "E:\WorkSpace_ERP\catalogo\views.py", line 275, in checkout
+    pedido.save()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1288, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2000, in as_sql
+    raise FieldError(
+django.core.exceptions.FieldError: Aggregate functions are not allowed in this query (stripe_payment_intent_id=<MagicMock 
+name='create().id.resolve_expression().resolve_expression()' id='1503856420880'>).
+EError en checkout
+Traceback (most recent call last):
+  File "E:\WorkSpace_ERP\catalogo\views.py", line 275, in checkout
+    pedido.save()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1288, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2000, in as_sql
+    raise FieldError(
+django.core.exceptions.FieldError: Aggregate functions are not allowed in this query (stripe_payment_intent_id=<MagicMock 
+name='create().id.resolve_expression().resolve_expression()' id='1503859430800'>).
+E..
+======================================================================
+ERROR: test_post_checkout_calcula_iva (tests.test_w14_checkout.CheckoutPagoTest.test_post_checkout_calcula_iva)
+El total del Pedido debe incluir el IVA configurado.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\WorkSpace_ERP\catalogo\views.py", line 275, in checkout
+    pedido.save()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1288, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2000, in as_sql
+    raise FieldError(
+django.core.exceptions.FieldError: Aggregate functions are not allowed in this query (stripe_payment_intent_id=<MagicMock 
+name='create().id.resolve_expression().resolve_expression()' id='1503857214544'>).
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "unittest\mock.py", line 1378, in patched
+  File "E:\WorkSpace_ERP\tests\test_w14_checkout.py", line 103, in test_post_checkout_calcula_iva
+    pedido    = Pedido.objects.first()
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1106, in first
+    for obj in queryset[:1]:
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 386, in __iter__
+    self._fetch_all()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1954, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 99, in _execute
+    self.db.validate_no_broken_transaction()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\base\base.py", line 521, in validate_no_broken_transaction
+    raise TransactionManagementError(
+django.db.transaction.TransactionManagementError: An error occurred in the current transaction. You can't execute queries until the end of the 'atomic' block.
+
+======================================================================
+ERROR: test_post_checkout_crea_cliente_erp (tests.test_w14_checkout.CheckoutPagoTest.test_post_checkout_crea_cliente_erp)
+Se debe crear (o encontrar) un Cliente ERP para el usuario.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\WorkSpace_ERP\catalogo\views.py", line 275, in checkout
+    pedido.save()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1288, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2000, in as_sql
+    raise FieldError(
+django.core.exceptions.FieldError: Aggregate functions are not allowed in this query (stripe_payment_intent_id=<MagicMock 
+name='create().id.resolve_expression().resolve_expression()' id='1503858212048'>).
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "unittest\mock.py", line 1378, in patched
+  File "E:\WorkSpace_ERP\tests\test_w14_checkout.py", line 116, in test_post_checkout_crea_cliente_erp
+    Cliente.objects.filter(correo=self.user.email).exists()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1298, in exists
+    return self.query.has_results(using=self.db)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\query.py", line 676, in has_results
+    return compiler.has_results()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1591, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 99, in _execute
+    self.db.validate_no_broken_transaction()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\base\base.py", line 521, in validate_no_broken_transaction
+    raise TransactionManagementError(
+django.db.transaction.TransactionManagementError: An error occurred in the current transaction. You can't execute queries until the end of the 'atomic' block.
+
+======================================================================
+ERROR: test_post_checkout_crea_pedido (tests.test_w14_checkout.CheckoutPagoTest.test_post_checkout_crea_pedido)
+POST /catalogo/checkout/ \u2192 se crea un Pedido en BD.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\WorkSpace_ERP\catalogo\views.py", line 275, in checkout
+    pedido.save()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1288, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2000, in as_sql
+    raise FieldError(
+django.core.exceptions.FieldError: Aggregate functions are not allowed in this query (stripe_payment_intent_id=<MagicMock 
+name='create().id.resolve_expression().resolve_expression()' id='1503860290064'>).
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "unittest\mock.py", line 1378, in patched
+  File "E:\WorkSpace_ERP\tests\test_w14_checkout.py", line 88, in test_post_checkout_crea_pedido
+    self.assertEqual(Pedido.objects.count(), 1)
+                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 606, in count
+    return self.query.get_count(using=self.db)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\query.py", line 646, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\query.py", line 628, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 99, in _execute
+    self.db.validate_no_broken_transaction()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\base\base.py", line 521, in validate_no_broken_transaction
+    raise TransactionManagementError(
+django.db.transaction.TransactionManagementError: An error occurred in the current transaction. You can't execute queries until the end of the 'atomic' block.
+
+======================================================================
+ERROR: test_post_checkout_llama_stripe_con_monto_correcto (tests.test_w14_checkout.CheckoutPagoTest.test_post_checkout_llama_stripe_con_monto_correcto)
+Stripe debe recibir el monto en centavos.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\WorkSpace_ERP\catalogo\views.py", line 275, in checkout
+    pedido.save()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1288, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2000, in as_sql
+    raise FieldError(
+django.core.exceptions.FieldError: Aggregate functions are not allowed in this query (stripe_payment_intent_id=<MagicMock 
+name='create().id.resolve_expression().resolve_expression()' id='1503856420880'>).
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "unittest\mock.py", line 1378, in patched
+  File "E:\WorkSpace_ERP\tests\test_w14_checkout.py", line 124, in test_post_checkout_llama_stripe_con_monto_correcto
+    config   = ConfiguracionERP.get_instance()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\configuracion\models.py", line 70, in get_instance
+    obj, _ = cls.objects.get_or_create(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 948, in get_or_create
+    return self.get(**kwargs), False
+           ^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 631, in get
+    num = len(clone)
+          ^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 368, in __len__
+    self._fetch_all()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1954, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 99, in _execute
+    self.db.validate_no_broken_transaction()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\base\base.py", line 521, in validate_no_broken_transaction
+    raise TransactionManagementError(
+django.db.transaction.TransactionManagementError: An error occurred in the current transaction. You can't execute queries until the end of the 'atomic' block.
+
+======================================================================
+ERROR: test_post_checkout_pedido_estado_pendiente (tests.test_w14_checkout.CheckoutPagoTest.test_post_checkout_pedido_estado_pendiente)
+El Pedido creado debe tener estado 'pendiente'.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\WorkSpace_ERP\catalogo\views.py", line 275, in checkout
+    pedido.save()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1288, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+Found 10 test(s).
+System check identified no issues (0 silenced).
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 2000, in as_sql
+    raise FieldError(
+django.core.exceptions.FieldError: Aggregate functions are not allowed in this query (stripe_payment_intent_id=<MagicMock 
+name='create().id.resolve_expression().resolve_expression()' id='1503859430800'>).
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "unittest\mock.py", line 1378, in patched
+  File "E:\WorkSpace_ERP\tests\test_w14_checkout.py", line 95, in test_post_checkout_pedido_estado_pendiente
+    pedido = Pedido.objects.first()
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1106, in first
+    for obj in queryset[:1]:
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 386, in __iter__
+    self._fetch_all()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 1954, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\utils.py", line 99, in _execute
+    self.db.validate_no_broken_transaction()
+  File "E:\WorkSpace_ERP\env_erp\Lib\site-packages\django\db\backends\base\base.py", line 521, in validate_no_broken_transaction
+    raise TransactionManagementError(
+django.db.transaction.TransactionManagementError: An error occurred in the current transaction. You can't execute queries until the end of the 'atomic' block.
+
+----------------------------------------------------------------------
+Ran 10 tests in 5.086s
+
+FAILED (errors=5)
+Destroying test database for alias 'default'...
+

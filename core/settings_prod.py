@@ -16,6 +16,7 @@ Uso local con Docker:
     gunicorn core.wsgi --bind 0.0.0.0:8000
 """
 from .settings import *   # hereda toda la configuración base
+DEBUG = False
 import os
 import dj_database_url
 
@@ -110,3 +111,6 @@ if _bucket:
     AWS_S3_FILE_OVERWRITE = False       # no sobreescribir si el nombre ya existe
     AWS_QUERYSTRING_AUTH  = False       # URLs públicas (sin firma)
     MEDIA_URL             = f'https://{_bucket}.s3.amazonaws.com/'
+
+    # En producción: usar SendGrid via anymail
+EMAIL_BACKEND = 'anymail.backends.sendgrid.EmailBackend'

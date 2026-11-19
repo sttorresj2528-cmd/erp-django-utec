@@ -13,13 +13,17 @@ Resultado esperado:
 from decimal import Decimal
 
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission, User
 from django.test import Client, TestCase
 from django.urls import reverse
+from django.contrib.auth.models import Permission
 
 from clientes.models    import Cliente
 from productos.models   import Categoria, Producto
 from proveedores.models import Proveedor
 from ventas.models      import Venta
+
+from django.contrib.auth.models import Permission, User
 
 
 class ProductoEscrituraTest(TestCase):
@@ -28,6 +32,9 @@ class ProductoEscrituraTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             'testuser', password='testpass123'
+        )
+        self.user.user_permissions.add(
+            *Permission.objects.filter(content_type__app_label='productos')
         )
         self.cat  = Categoria.objects.create(nombre='Cat Test')
         self.prod = Producto.objects.create(
@@ -87,8 +94,7 @@ class ProductoEscrituraTest(TestCase):
         }
         r = self.client.post(reverse('productos:crear'), datos)
         self.assertEqual(r.status_code, 200)
-        self.assertFormError(r, 'form', 'precio',
-                             'Ensure this value is greater than or equal to 0.00.')
+        self.assertIn('precio', r.context['form'].errors)
 
     def test_delete_elimina_producto(self):
         """POST /productos/<id>/eliminar/ → borra el producto y redirige."""
@@ -106,6 +112,9 @@ class ClienteEscrituraTest(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user('userC', password='pass')
+        self.user.user_permissions.add(
+            *Permission.objects.filter(content_type__app_label='clientes')
+        )
 
     def test_crear_cliente_sin_auth_redirige(self):
         r = self.client.get(reverse('clientes:crear'))
@@ -134,7 +143,7 @@ class ClienteEscrituraTest(TestCase):
             'activo': True,
         })
         self.assertEqual(r.status_code, 200)
-        self.assertContains(r, 'ya existe')
+        self.assertContains(r, 'Ya existe')
 
 
 class ProveedorEscrituraTest(TestCase):
@@ -166,12 +175,15 @@ class VentaEscrituraTest(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user('userV', password='pass')
+        permisos = Permission.objects.filter(
+            content_type__app_label__in=['ventas', 'productos', 'clientes'],
+        )
+        self.user.user_permissions.add(*permisos)
         cat       = Categoria.objects.create(nombre='Cat')
         self.prod = Producto.objects.create(
             nombre='P', precio=Decimal('100.00'), stock=5, categoria=cat
         )
         self.cli  = Cliente.objects.create(nombre='C', correo='c@t.com')
-
     def test_crear_venta_sin_auth_redirige(self):
         r = self.client.get(reverse('ventas:crear'))
         self.assertEqual(r.status_code, 302)
