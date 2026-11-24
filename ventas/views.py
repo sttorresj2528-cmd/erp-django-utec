@@ -32,6 +32,8 @@ from .models import DetalleVenta, Venta
 
 from configuracion.models import ConfiguracionERP
 
+from .emails import enviar_correos_venta
+
 
 class VentaListView(ListView):
     """Lista paginada de ventas en orden cronológico inverso."""
@@ -87,6 +89,7 @@ def crear_venta(request):
             detalle       = detalle_form.save(commit=False)
             detalle.venta = venta
             detalle.save()
+            enviar_correos_venta(venta)
             messages.success(
                 request,
                 f'Venta #{venta.pk} registrada. '
