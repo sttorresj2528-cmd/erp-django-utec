@@ -1,6 +1,11 @@
 # core/settings.py
 import environ
 from pathlib import Path
+import os
+from celery.schedules import crontab
+# core/settings.py — verificar que existe al inicio:
+from datetime import timedelta   
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -308,6 +313,29 @@ if 'test' in sys.argv:
     CELERY_TASK_ALWAYS_EAGER = True
     CELERY_BROKER_URL = 'memory://'
     CELERY_RESULT_BACKEND = 'cache+memory://'
+    
+    
+CELERY_BEAT_SCHEDULE = {
+
+    # Verificar stock bajo cada hora
+    'verificar-stock-bajo-cada-hora': {
+        'task':     'ventas.verificar_stock_bajo',
+        'schedule': timedelta(hours=1),
+        'args':     (5,),   # umbral = 5 unidades
+        'options':  {'queue': 'erp_django'},
+    },
+
+    # Reporte de ventas diario a las 8:00 AM (hora México)
+    'reporte-ventas-diario-8am': {
+        'task':     'ventas.reporte_ventas_diario',
+        'schedule': crontab(hour=8, minute=0),
+        'options':  {'queue': 'erp_django'},
+    },
+
+}
+
+# Necesario para que Beat use la zona horaria de Django (no UTC)
+CELERY_BEAT_TIMEZONE = TIME_ZONE   # 'America/Mexico_City'
 
 # ── DJANGO SITES (requerido por allauth) ──────────────────────────────────
 SITE_ID = 1
@@ -331,3 +359,4 @@ ACCOUNT_SESSION_REMEMBER       = True           # recordar sesión
 # LOGIN_URL           = '/accounts/login/'
 # LOGIN_REDIRECT_URL  = '/productos/'
 LOGOUT_REDIRECT_URL = '/'
+
