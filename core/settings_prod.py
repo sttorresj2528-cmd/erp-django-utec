@@ -115,5 +115,10 @@ if _bucket:
     # En producción: usar SendGrid via anymail
 EMAIL_BACKEND = 'anymail.backends.sendgrid.EmailBackend'
 
-CELERY_TASK_ALWAYS_EAGER = True
-CELERY_TASK_EAGER_PROPAGATES = False
+
+ANYMAIL = {
+    'SENDGRID_API_KEY': os.environ.get('SENDGRID_API_KEY', ''),
+}
+DEFAULT_FROM_EMAIL = 'st.torresj.2526@cbtis198.edu.mx'
+ADMIN_EMAIL = 'st.torresj.2526@cbtis198.edu.mx'
+ADMINS = [('Admin', 'st.torresj.2526@cbtis198.edu.mx')]
