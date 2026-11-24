@@ -156,17 +156,16 @@ EMAIL_BACKEND = env(
 )
 
 # Dirección del remitente visible en los correos
-DEFAULT_FROM_EMAIL = env(
-    'DEFAULT_FROM_EMAIL',
-    default='ERP Django <noreply@erp-django.com>'
-)
+DEFAULT_FROM_EMAIL = 'st.torresj.2526@cbtis198.edu.mx'
+'DEFAULT_FROM_EMAIL',
+default='ERP Django <noreply@erp-django.com>'
 
 # Nombre del asunto con prefijo del sistema
 EMAIL_SUBJECT_PREFIX = '[ERP Django] '
 
 # Administradores que reciben alertas del sistema
 ADMINS = [
-    ('Admin ERP', env('ADMIN_EMAIL', default='admin@erp-django.com')),
+    ('Admin ERP', env('ADMIN_EMAIL', default='st.torresj.2526@cbtis198.edu.mx')),
 ]
 
 # Configuración de django-anymail (SendGrid)
