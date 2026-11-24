@@ -157,8 +157,6 @@ EMAIL_BACKEND = env(
 
 # Dirección del remitente visible en los correos
 DEFAULT_FROM_EMAIL = 'st.torresj.2526@cbtis198.edu.mx'
-'DEFAULT_FROM_EMAIL',
-default='ERP Django <noreply@erp-django.com>'
 
 # Nombre del asunto con prefijo del sistema
 EMAIL_SUBJECT_PREFIX = '[ERP Django] '
