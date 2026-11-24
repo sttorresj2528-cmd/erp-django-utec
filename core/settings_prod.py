@@ -119,6 +119,6 @@ EMAIL_BACKEND = 'anymail.backends.sendgrid.EmailBackend'
 ANYMAIL = {
     'SENDGRID_API_KEY': os.environ.get('SENDGRID_API_KEY', ''),
 }
-DEFAULT_FROM_EMAIL = 'st.torresj.2526@cbtis198.edu.mx'
-ADMIN_EMAIL = 'st.torresj.2526@cbtis198.edu.mx'
-ADMINS = [('Admin', 'st.torresj.2526@cbtis198.edu.mx')]
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'st.torresj.2528@cbtis198.edu.mx')
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'st.torresj.2528@cbtis198.edu.mx')
+ADMINS = [('Admin', ADMIN_EMAIL)]
