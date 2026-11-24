@@ -14,7 +14,7 @@ def _enviar(asunto, texto, html, destinos):
         msg = EmailMultiAlternatives(
             subject=asunto,
             body=texto,
-            from_email=settings.DEFAULT_FROM_EMAIL,
+            from_email='st.torresj.2526@cbtis198.edu.mx',
             to=destinos,
         )
         msg.attach_alternative(html, 'text/html')
