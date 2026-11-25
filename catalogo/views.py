@@ -19,7 +19,11 @@ Estructura del carrito en sesión:
     }
 """
 # catalogo/views.py — agregar import al inicio:
-from ventas.tasks import enviar_confirmacion_pedido
+
+
+from ventas.tasks import enviar_confirmacion_pedido, enviar_confirmacion_segura
+
+
 
 
 # catalogo/views.py — agregar imports al inicio:
@@ -328,7 +332,7 @@ def pago_exitoso(request, pedido_id: int):
     # ── NUEVO W16: disparar tarea asíncrona de confirmación ───────────
     # .delay() envía la tarea al broker Redis de forma no bloqueante.
     # El worker la ejecutará en segundo plano.
-    enviar_confirmacion_pedido.delay(pedido.pk)
+    enviar_confirmacion_segura(pedido.pk)
     # ──────────────────────────────────────────────────────────────────
 
     messages.success(

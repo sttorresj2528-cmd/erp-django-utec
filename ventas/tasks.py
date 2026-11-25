@@ -352,3 +352,16 @@ def _enviar_reporte_ventas(
         logger.info(f'[reporte_diario] Reporte enviado a {admin_correo}.')
     except Exception as exc:
         logger.error(f'[reporte_diario] Error al enviar reporte: {exc}')
+
+def enviar_confirmacion_segura(pedido_pk):
+    """Intenta Celery; si no hay broker, envía directo. Nunca lanza error."""
+    import logging
+    log = logging.getLogger(__name__)
+    try:
+        enviar_confirmacion_pedido.delay(pedido_pk)
+    except Exception as exc:
+        log.warning(f'Sin broker Celery, envío síncrono: {exc}')
+        try:
+            enviar_confirmacion_pedido.apply(args=[pedido_pk])
+        except Exception as exc2:
+            log.error(f'Correo del pedido {pedido_pk} falló: {exc2}')

@@ -28,6 +28,9 @@ from django.views.decorators.http import require_POST
 from productos.models import Producto
 from ventas.models    import Pedido
 
+from ventas.tasks import enviar_confirmacion_segura
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -117,7 +120,8 @@ def _manejar_pago_exitoso(payment_intent: dict) -> None:
         # El webhook es el lugar más confiable para disparar el correo:
         # se ejecuta incluso si el usuario cerró el navegador antes de
         # llegar a pago_exitoso().
-        enviar_confirmacion_pedido.delay(pedido.pk)
+        enviar_confirmacion_segura(pedido.pk)
+        
         # ─────────────────────────────────────────────────────────────
     else:
         logger.info(
