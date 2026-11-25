@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Enviar reporte de ventas{% endblock %}
+
+{% block content %}
+<div style="display:flex;justify-content:center;align-items:center;min-height:60vh;">
+    <div class="erp-card" style="max-width:520px;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:1rem;">📊</div>
+        <h2 style="margin:0 0 .5rem;">Reporte de ventas</h2>
+
+        {% if destino %}
+        <p style="margin-bottom:1.5rem;">
+            Se enviará el reporte de hoy a <strong>{{ destino }}</strong>.
+        </p>
+        {% endif %}
+
+        {% if resultado %}
+        <div class="erp-card" style="text-align:left;margin-bottom:1.5rem;">
+            ✅ <strong>Reporte enviado a {{ destino }}.</strong><br>
+            Pedidos pagados hoy: {{ resultado.total_pedidos }}<br>
+            Total facturado: ${{ resultado.total_facturado }}
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="erp-card" style="text-align:left;margin-bottom:1.5rem;">
+            ❌ {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-erp-primary">
+                Enviar reporte ahora
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,4 +1,5 @@
 # core/urls.py — agregar las rutas de API y token
+from core.reporte_views import enviar_reporte_ahora
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -20,7 +21,8 @@ api_urlpatterns = (
 )
 
 # core/urls.py — agregar la ruta del catálogo:
-urlpatterns = [
+urlpatterns = [    
+    path('reporte/enviar/', enviar_reporte_ahora, name='reporte_enviar'),
     path('admin/',      admin.site.urls),
     path('',            views.bienvenida,             name='inicio'),
     path('accounts/',   include('allauth.urls')),
