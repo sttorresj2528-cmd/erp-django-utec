@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
+
 logger = logging.getLogger(__name__)
 
 UMBRAL_STOCK = 5   # mismo umbral por defecto que verificar_stock_bajo (W17)
@@ -94,3 +95,37 @@ def enviar_correos_venta(venta):
     enviar_ticket_venta(venta)
     enviar_aviso_producto_vendido(venta)
     enviar_aviso_stock(venta)
+
+def registrar_venta_y_correos(pedido):
+    """Crea Venta + DetalleVenta desde el pedido pagado y manda los 3 correos
+    (ticket, producto vendido, stock). Nunca lanza error."""
+    import logging
+    from decimal import Decimal
+    from django.core.cache import cache
+    from django.db import transaction
+    log = logging.getLogger(__name__)
+
+    # Evita duplicar la venta si el webhook se reintenta
+    if not cache.add(f'venta_desde_pedido_{pedido.pk}', 1, 3600):
+        return None
+    try:
+        from ventas.models import Venta, DetalleVenta
+        from ventas import emails
+
+        with transaction.atomic():
+            venta = Venta.objects.create(cliente=pedido.cliente)
+            for item in pedido.items_snapshot or []:
+                DetalleVenta.objects.create(
+                    venta=venta,
+                    producto_id=item['producto_id'],
+                    cantidad=int(item['cantidad']),
+                    precio_unitario=Decimal(str(item['precio'])),
+                )
+
+        emails.enviar_ticket_venta(venta)
+        emails.enviar_aviso_producto_vendido(venta)
+        emails.enviar_aviso_stock(venta)
+        return venta
+    except Exception as exc:
+        log.exception(f'No se pudo registrar la venta del pedido {pedido.pk}: {exc}')
+        return None

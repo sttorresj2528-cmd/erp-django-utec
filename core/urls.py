@@ -15,6 +15,10 @@ from ventas.api_urls      import urlpatterns as ventas_api
 
 from core.reporte_views import enviar_reporte_ahora, disparar_reporte
 
+from ventas import cron_views
+
+
+
 api_urlpatterns = (
     productos_api +
     clientes_api  +
@@ -23,7 +27,9 @@ api_urlpatterns = (
 )
 
 # core/urls.py — agregar la ruta del catálogo:
-urlpatterns = [    
+urlpatterns = [        
+    path('cron/health/', cron_views.health),
+    path('cron/<str:nombre>/', cron_views.ejecutar),
     path('cron/reporte/', disparar_reporte, name='cron_reporte'),
     path('reporte/enviar/', enviar_reporte_ahora, name='reporte_enviar'),
     path('admin/',      admin.site.urls),
