@@ -25,3 +25,17 @@ def enviar_reporte_ahora(request):
                 contexto['error'] = f'No se pudo enviar el reporte: {exc}'
 
     return render(request, 'reporte_enviar.html', contexto)
+
+def disparar_reporte(request):
+    """Envía el reporte del día. Para cron externo, protegida con token."""
+    esperado = os.environ.get('REPORTE_TOKEN', '')
+    recibido = request.GET.get('token', '')
+    if not esperado or not hmac.compare_digest(esperado, recibido):
+        return HttpResponseForbidden('no autorizado')
+
+    from ventas.tasks import reporte_ventas_diario
+    resultado = reporte_ventas_diario()
+    return HttpResponse(
+        f"reporte enviado: {resultado['total_pedidos']} pedidos, "
+        f"${resultado['total_facturado']}"
+    )

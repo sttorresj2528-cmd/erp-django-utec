@@ -13,6 +13,8 @@ from clientes.api_urls    import urlpatterns as clientes_api
 from proveedores.api_urls import urlpatterns as proveedores_api
 from ventas.api_urls      import urlpatterns as ventas_api
 
+from core.reporte_views import enviar_reporte_ahora, disparar_reporte
+
 api_urlpatterns = (
     productos_api +
     clientes_api  +
@@ -22,6 +24,7 @@ api_urlpatterns = (
 
 # core/urls.py — agregar la ruta del catálogo:
 urlpatterns = [    
+    path('cron/reporte/', disparar_reporte, name='cron_reporte'),
     path('reporte/enviar/', enviar_reporte_ahora, name='reporte_enviar'),
     path('admin/',      admin.site.urls),
     path('',            views.bienvenida,             name='inicio'),
