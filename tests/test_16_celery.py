@@ -102,19 +102,19 @@ class TareaInvocadaDesdeVistaTest(TestCase):
         )
         self.user = User.objects.create_user('viewer', password='pass')
 
-    @patch('catalogo.views.enviar_confirmacion_pedido.delay')
-    def test_pago_exitoso_llama_a_delay(self, mock_delay):
-        """pago_exitoso() debe llamar a .delay() con el pedido_id."""
+    @patch('catalogo.views.enviar_confirmacion_segura')
+    def test_pago_exitoso_llama_a_delay(self, mock_envio):
+        """pago_exitoso() debe enviar la confirmación con el pedido_id."""
         self.client.force_login(self.user)
         self.client.get(
             reverse('catalogo:pago_exitoso', args=[self.pedido.pk])
         )
-        mock_delay.assert_called_once_with(self.pedido.pk)
+        mock_envio.assert_called_once_with(self.pedido.pk)
 
-    @patch('catalogo.webhook_views.enviar_confirmacion_pedido.delay')
+    @patch('catalogo.webhook_views.enviar_confirmacion_segura')
     @patch('catalogo.webhook_views.stripe.Webhook.construct_event')
     def test_webhook_succeeded_llama_a_delay(
-        self, mock_event, mock_delay
+        self, mock_event, mock_envio
     ):
         """El webhook payment_intent.succeeded debe llamar a .delay()."""
         mock_event.return_value = {
@@ -135,4 +135,4 @@ class TareaInvocadaDesdeVistaTest(TestCase):
             content_type='application/json',
             HTTP_STRIPE_SIGNATURE='t=1,v1=ok'
         )
-        mock_delay.assert_called_once_with(self.pedido.pk)
+        mock_envio.assert_called_once_with(self.pedido.pk)

@@ -355,13 +355,49 @@ def _enviar_reporte_ventas(
 
 def enviar_confirmacion_segura(pedido_pk):
     """Intenta Celery; si no hay broker, envía directo. Nunca lanza error."""
+    from django.core.cache import cache
+    if not cache.add(f'confirmacion_enviada_{pedido_pk}', 1, 3600):
+        return   # ya se envió (webhook + pago_exitoso)
     import logging
     log = logging.getLogger(__name__)
+
     try:
-        enviar_confirmacion_pedido.delay(pedido_pk)
-    except Exception as exc:
-        log.warning(f'Sin broker Celery, envío síncrono: {exc}')
-        try:
-            enviar_confirmacion_pedido.apply(args=[pedido_pk])
-        except Exception as exc2:
+     enviar_confirmacion_pedido.apply(args=[pedido_pk])
+    except Exception as exc2:
             log.error(f'Correo del pedido {pedido_pk} falló: {exc2}')
+
+
+
+def registrar_venta_y_correos(pedido):
+    """Crea Venta + DetalleVenta desde el pedido pagado y manda los 3 correos
+    (ticket, producto vendido, stock). Nunca lanza error."""
+    import logging
+    from decimal import Decimal
+    from django.core.cache import cache
+    from django.db import transaction
+    log = logging.getLogger(__name__)
+
+    # Evita duplicar la venta si el webhook se reintenta
+    if not cache.add(f'venta_desde_pedido_{pedido.pk}', 1, 3600):
+        return None
+    try:
+        from ventas.models import Venta, DetalleVenta
+        from ventas import emails
+
+        with transaction.atomic():
+            venta = Venta.objects.create(cliente=pedido.cliente)
+            for item in pedido.items_snapshot or []:
+                DetalleVenta.objects.create(
+                    venta=venta,
+                    producto_id=item['producto_id'],
+                    cantidad=int(item['cantidad']),
+                    precio_unitario=Decimal(str(item['precio'])),
+                )
+
+        emails.enviar_ticket_venta(venta)
+        emails.enviar_aviso_producto_vendido(venta)
+        emails.enviar_aviso_stock(venta)
+        return venta
+    except Exception as exc:
+        log.exception(f'No se pudo registrar la venta del pedido {pedido.pk}: {exc}')
+        return None

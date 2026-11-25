@@ -358,3 +358,9 @@ ACCOUNT_SESSION_REMEMBER       = True           # recordar sesión
 # LOGIN_REDIRECT_URL  = '/productos/'
 LOGOUT_REDIRECT_URL = '/'
 
+import sys
+if 'test' in sys.argv:
+    # En tests el caché no debe recordar envíos entre pruebas
+    CACHES = {
+        'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}
+    }

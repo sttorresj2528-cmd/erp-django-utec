@@ -28,7 +28,7 @@ from django.views.decorators.http import require_POST
 from productos.models import Producto
 from ventas.models    import Pedido
 
-from ventas.tasks import enviar_confirmacion_segura
+from ventas.tasks import enviar_confirmacion_segura, registrar_venta_y_correos
 
 
 logger = logging.getLogger(__name__)
@@ -115,6 +115,8 @@ def _manejar_pago_exitoso(payment_intent: dict) -> None:
             f'Pedido {pedido.numero_pedido} actualizado a "pagado".'
         )
         _descontar_stock(pedido)
+        registrar_venta_y_correos(pedido)
+
 
         # ── NUEVO W16: disparar tarea de confirmación ─────────────────
         # El webhook es el lugar más confiable para disparar el correo:
