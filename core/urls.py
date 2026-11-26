@@ -16,7 +16,13 @@ from ventas.api_urls      import urlpatterns as ventas_api
 from core.reporte_views import enviar_reporte_ahora, disparar_reporte
 
 from ventas import cron_views
+import hmac
+import os
 
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseForbidden
+from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
 
 
 api_urlpatterns = (
