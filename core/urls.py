@@ -28,9 +28,10 @@ api_urlpatterns = (
 
 # core/urls.py — agregar la ruta del catálogo:
 urlpatterns = [        
+urlpatterns = [
     path('cron/health/', cron_views.health),
-    path('cron/<str:nombre>/', cron_views.ejecutar),
     path('cron/reporte/', disparar_reporte, name='cron_reporte'),
+    path('cron/<str:nombre>/', cron_views.ejecutar),
     path('reporte/enviar/', enviar_reporte_ahora, name='reporte_enviar'),
     path('admin/',      admin.site.urls),
     path('',            views.bienvenida,             name='inicio'),
