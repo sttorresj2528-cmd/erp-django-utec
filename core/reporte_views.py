@@ -28,10 +28,13 @@ def enviar_reporte_ahora(request):
 
 def disparar_reporte(request):
     """Envía el reporte del día. Para cron externo, protegida con token."""
-    esperado = os.environ.get('REPORTE_TOKEN', '')
-    recibido = request.GET.get('token', '')
+    esperado = os.environ.get('REPORTE_TOKEN', '').strip()
+    recibido = request.GET.get('token', '').strip()
     if not esperado or not hmac.compare_digest(esperado, recibido):
-        return HttpResponseForbidden('no autorizado')
+        return HttpResponseForbidden(
+            f'v2 no autorizado | token en servidor: {len(esperado)} caracteres'
+            f' | token recibido: {len(recibido)} caracteres'
+        )
 
     from ventas.tasks import reporte_ventas_diario
     resultado = reporte_ventas_diario()
